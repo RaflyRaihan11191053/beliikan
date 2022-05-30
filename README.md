@@ -2,22 +2,126 @@
 Tugas Mata Kuliah Pengembangan Aplikasi Berbasis Web
 
 # Module
-1. Login / Register ✅
+1. Authentication ✅
 2. Product ✅
-3. Category
-4. Detail_category
-5. History
-6. Shipping
-7. Transaction ✅
+3. Category ✅
+4. History
+5. Transaction ✅
+6. Detail Transaction ✅
+7. Shipping
 8. Payments
 
-# Create Product
+# Authentication
+## Register
 Request :
   - Method : POST
-  - Endpoint : /api/product
+  - Endpoint : `api/register`
   - Header : 
       - Content-Type: application/json
       - Accept: application/json
+      
+  - Body :
+ 
+  ```json 
+{
+    "name" : "string",
+    "phone" : "string",
+    "address" : "string",
+    "email" : "string",
+    "password" : "string"
+}
+```
+Response :
+
+```json 
+{
+    "code" : "number",
+    "status" : "string",
+    "data" : 
+      "user": {
+          "email": "string",
+          "userable_type": "string",
+          "userable_id": "integer",
+          "updated_at": "string",
+          "created_at": "string",
+          "id": "integer"
+      }
+}
+```
+
+## Login
+Request :
+  - Method : POST
+  - Endpoint : `api/login`
+  - Header : 
+      - Content-Type: application/json
+      - Accept: application/json
+      
+  - Body :
+ 
+  ```json 
+{
+    "email" : "string",
+    "password" : "string"
+}
+```
+Response :
+
+```json 
+{
+    "code" : "number",
+    "status" : "string",
+    "data" : {
+      "access_token": "string",
+      "token_type": "string",
+      "user": {
+          "id_seller": "integer",
+          "name": "string",
+          "phone": "string",
+          "email": "string",
+          "address": "string",
+          "user_type": "string"
+      }
+}
+```
+## Logout
+Request :
+  - Method : POST
+  - Endpoint : `api/login`
+  - Header : 
+      - Content-Type: application/json
+      - Accept: application/json
+      - Authorization : json web token
+      
+  - Body :
+ 
+  ```json 
+{
+    "token" : "string"
+}
+```
+Response :
+
+```json 
+{
+    "code" : "number",
+    "status" : {
+      "success": true,
+      "message": "User has been logged out"
+    }
+    "data" : null
+}
+```
+
+# Product
+## Create Product
+Request :
+  - Method : POST
+  - Endpoint : `/api/product`
+  - Header : 
+      - Content-Type: application/json
+      - Accept: application/json
+      - Authorization : json web token
       
   - Body :
  
@@ -47,10 +151,10 @@ Respons :
      }
 }
 ```
-# Get Product
+## Get Product
 Request :
   - Method : GET
-  - Endpoint : /api/product/{id}
+  - Endpoint : `/api/product/{id}`
   - Header : 
       - Content-Type: application/json
       - Accept: application/json
@@ -73,10 +177,10 @@ Respons :
      }
 }
 ```
-# Update Product
+## Update Product
 Request :
   - Method : PUT
-  - Endpoint : /api/product/{id}
+  - Endpoint : `/api/product/{id}`
   - Header : 
       - Content-Type: application/json
       - Accept: application/json
@@ -110,10 +214,10 @@ Respons :
 }
 ```
 
-#list Product
+## list Product
 Request :
   - Method : GET
-  - Endpoint : /api/products
+  - Endpoint : `/api/products`
   - Header : 
       - Content-Type: application/json
       - Accept: application/json
@@ -527,5 +631,81 @@ Response :
     "status" : "string"
 }
 ```
+# Category
+## create category
 
+Request :
+  - Method : POST
+  - Endpoint : `/api/category`
+  - Header : 
+      - Content-Type: application/json
+      - Accept: application/json
+      - Authorization : json web token
+      
+  - Body :
+ 
+  ```json 
+{
+    "name" : "string"
+}
+```
+Response :
 
+```json 
+{
+    "code" : "number",
+    "status" : "string",
+    "data" : {
+      "name": "string",
+      "updated_at": "string",
+      "created_at": "string",
+      "id": "integer"
+    }
+}
+```
+
+## list category
+
+Request :
+  - Method : get
+  - Endpoint : `/api/category`
+  - Header : 
+      - Content-Type: application/json
+      - Accept: application/json
+      
+Response :
+
+```json 
+{
+    "code" : "number",
+    "status" : "string",
+    "data" : [
+      {
+        "name": "string",
+        "updated_at": "string",
+        "created_at": "string",
+        "id": "integer"
+      }
+    ]
+}
+```
+
+## delete category
+
+Request :
+  - Method : DELETE
+  - Endpoint : `/api/category/{id}`
+  - Header : 
+      - Content-Type: application/json
+      - Accept: application/json
+      - Authorization
+      
+Response :
+
+```json 
+{
+    "code" : "number",
+    "status" : "string",
+    "data" : []
+}
+```
