@@ -5,11 +5,9 @@ Tugas Mata Kuliah Pengembangan Aplikasi Berbasis Web
 1. Authentication ✅
 2. Product ✅
 3. Category ✅
-4. History
-5. Transaction ✅
-6. Detail Transaction ✅
-7. Shipping
-8. Payments
+4. Transaction ✅
+5. Detail Transaction ✅
+6. Shipping ✅
 
 # Authentication
 ## Register
@@ -221,43 +219,39 @@ Request :
   - Header : 
       - Content-Type: application/json
       - Accept: application/json
-      
-  - Body :
-
+  - query(optional) : 
   ```json 
 {
-    "name" : "string",
-    "price" : "long",
-    "description" : "text"
-    "stock" : "integer"
-    "img_url" : "string"
+    "category_id" : "number",
+    "seller_id" : "string",
+    "name" : "string"
 }
 ```
-
-Respons :
+  
+Response :
 ```json 
 {
     "code" : "number",
     "status" : "string",
     "data" : [
-      {
-         "name" : "string",
-         "price" : "long",
-         "description" : "text"
-         "stock" : "integer"
-         "img_url" : "string",
-         "createdAt" : "date",
-         "updatedAt" : "date"
-     },
-     {
-         "name" : "string",
-         "price" : "long",
-         "description" : "text"
-         "stock" : "integer"
-         "img_url" : "string",
-         "createdAt" : "date",
-         "updatedAt" : "date"
-     }
+        {
+           "name" : "string",
+           "price" : "long",
+           "description" : "text"
+           "stock" : "integer"
+           "img_url" : "string",
+           "createdAt" : "date",
+           "updatedAt" : "date"
+       },
+       {
+           "name" : "string",
+           "price" : "long",
+           "description" : "text"
+           "stock" : "integer"
+           "img_url" : "string",
+           "createdAt" : "date",
+           "updatedAt" : "date"
+       }
      ]
 }
 ```
@@ -269,7 +263,8 @@ Request :
 - Endpoint : `/api/products/{id}`
 - Header :
     - Accept: application/json
-
+    - Authorization : json web token
+   
 Response :
 
 ```json 
@@ -286,6 +281,7 @@ Request :
   - Header : 
       - Content-Type: application/json
       - Accept: application/json
+      - Authorization : json web token
       
   - Body :
  
@@ -332,8 +328,7 @@ Request :
   - Endpoint : `/api/transactions/{id}`
   - Header : 
       - Accept: application/json
-      
-  - Body :
+      - Authorization : json web token
   
 Response :
 ```json 
@@ -364,6 +359,7 @@ Request :
   - Header : 
       - Content-Type: application/json
       - Accept: application/json
+      - Authorization : json web token
       
   - Body :
 
@@ -409,10 +405,10 @@ Request :
   - Endpoint : `/api/transactions`
   - Header : 
       - Accept: application/json
+      - Authorization : json web token
       
-  - Body :
 
-Respons :
+Response :
 ```json 
 {
     "code" : "number",
@@ -458,6 +454,7 @@ Request :
 - Endpoint : `/api/transactions/{id}`
 - Header :
     - Accept: application/json
+    - Authorization : json web token
 
 Response :
 
@@ -469,46 +466,6 @@ Response :
 ```
 
 # detail transactions
-## Create detail transactions
-Request :
-  - Method : POST
-  - Endpoint : `/api/detail_transactions`
-  - Header : 
-      - Content-Type: application/json
-      - Accept: application/json
-      
-  - Body :
- 
-  ```json 
-{
-    "user_id" : "integer",
-    "product_id" : "integer",
-    "name" : "string",
-    "category" : "string",
-    "transaction_id" : "integer",
-    "qty" : "integer",
-}
-```
-Response :
-
-```json 
-{
-    "code" : "number",
-    "status" : "string",
-    "data" : {
-         "id" : "integer",
-         "user_id" : "integer",
-         "product_id" : "integer",
-         "name" : "string",
-         "category" : "string",
-         "transaction_id" : "integer",
-         "qty" : "integer"
-         "createdAt" : "date",
-         "updatedAt" : "date"
-     }
-}
-```
-
 ## Get detail_transactions
 Request :
   - Method : GET
@@ -522,44 +479,6 @@ Response :
 ```json 
 {
    "code" : "number",
-    "status" : "string",
-    "data" : {
-         "id" : "integer",
-         "user_id" : "integer",
-         "product_id" : "integer",
-         "name" : "string",
-         "category" : "string",
-         "transaction_id" : "integer",
-         "qty" : "integer",
-         "createdAt" : "date",
-         "updatedAt" : "date"
-     }
-}
-```
-## Update detail_transactions
-Request :
-  - Method : PUT
-  - Endpoint : `/api/detail_transactions/{id}`
-  - Header : 
-      - Content-Type: application/json
-      - Accept: application/json
-      
-  - Body :
-
-  ```json 
-{
-    "user_id" : "integer",
-    "product_id" : "integer",
-    "name" : "string",
-    "category" : "string",
-    "transaction_id" : "integer",
-    "qty" : "integer",
-```
-
-Response :
-```json 
-{
-    "code" : "number",
     "status" : "string",
     "data" : {
          "id" : "integer",
@@ -613,22 +532,6 @@ Respons :
          "updatedAt" : "date"
      }
      ]
-}
-```
-## Delete detail_transactions
-
-Request :
-- Method : DELETE
-- Endpoint : `/api/detail_transactions/{id}`
-- Header :
-    - Accept: application/json
-
-Response :
-
-```json 
-{
-    "code" : "number",
-    "status" : "string"
 }
 ```
 # Category
@@ -698,7 +601,7 @@ Request :
   - Header : 
       - Content-Type: application/json
       - Accept: application/json
-      - Authorization
+      - Authorization : json web token
       
 Response :
 
@@ -707,5 +610,142 @@ Response :
     "code" : "number",
     "status" : "string",
     "data" : []
+}
+```
+
+# Shipping
+## list province
+Request :
+  - Method : GET
+  - Endpoint : `/api/province`
+  - Header : 
+      - Content-Type: application/json
+      - Accept: application/json
+  
+Response :
+ ```json 
+{"code": 200,
+    "status": "success to get all province",
+    "data": [
+        {
+            "province_id": "1",
+            "province": "Bali"
+        },
+        {
+            "province_id": "2",
+            "province": "Bangka Belitung"
+        }
+    ]
+}
+```
+
+## get province
+Request :
+  - Method : GET
+  - Endpoint : `/api/province/{id}`
+  - Header : 
+      - Content-Type: application/json
+      - Accept: application/json
+  
+Response :
+ ```json 
+{"code": 200,
+    "status": "success to get all province",
+    "data": {
+        "province_id": "2",
+        "province": "Bangka Belitung"
+    }
+}
+```
+
+
+## list cost
+Request :
+  - Method : POST
+  - Endpoint : `/api/cost`
+  - Header : 
+      - Content-Type: application/json
+      - Accept: application/json
+      
+  - Body :
+ 
+  ```json 
+{
+    "origin" : "number",
+    "destination" : "number",
+    "weight" : "number",
+    "courier" : "string"
+}
+```
+Response :
+
+```json 
+{
+    [
+      {
+          "service": "OKE",
+          "description": "Ongkos Kirim Ekonomis",
+          "cost": [
+              {
+                  "value": 39000,
+                  "etd": "3-4",
+                  "note": ""
+              }
+          ]
+      },
+      {
+          "service": "REG",
+          "description": "Layanan Reguler",
+          "cost": [
+              {
+                  "value": 42000,
+                  "etd": "2-3",
+                  "note": ""
+              }
+          ]
+      }
+  ]
+}
+```
+
+
+## list city
+Request :
+  - Method : GET
+  - Endpoint : `/api/city`
+  - Header : 
+      - Content-Type: application/json
+      - Accept: application/json
+      
+  - query(optional) :
+ 
+  ```json 
+{
+    "province" : "number",
+}
+```
+Response :
+ ```json 
+{
+    "code": 200,
+    "status": "success get list city",
+    "data": [
+        {
+            "city_id": "19",
+            "province_id": "15",
+            "province": "Kalimantan Timur",
+            "type": "Kota",
+            "city_name": "Balikpapan",
+            "postal_code": "76111"
+        },
+        {
+            "city_id": "66",
+            "province_id": "15",
+            "province": "Kalimantan Timur",
+            "type": "Kabupaten",
+            "city_name": "Berau",
+            "postal_code": "77311"
+        }
+    ]
 }
 ```
